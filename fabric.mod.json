@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "lucifer",
+  "version": "${version}",
+  "name": "Lucifer Client",
+  "description": "A crimson-themed modular Minecraft client UI and HUD framework.",
+  "authors": ["TeaHack"],
+  "environment": "client",
+  "entrypoints": { "client": ["com.lucifer.client.LuciferClient"] },
+  "depends": {
+    "fabricloader": ">=0.18.0",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
