@@ -1,16 +1,15 @@
+
 name: Build Lucifer Client
 
 on:
-  workflow_dispatch:
   push:
     branches: [main]
-
-permissions:
-  contents: read
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -20,23 +19,16 @@ jobs:
         with:
           distribution: temurin
           java-version: '21'
+          cache: gradle
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Build with Gradle
-        run: |
-          if [ -f gradlew ]; then
-            chmod +x gradlew
-            ./gradlew build
-          elif [ -f build.gradle ] || [ -f build.gradle.kts ]; then
-            gradle build
-          else
-            echo "No Gradle build file found."
-            exit 1
-          fi
+        run: gradle build
 
       - name: Upload build artifacts
-        if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: lucifer-client-build
+          name: lucifer-client
           path: build/libs/*.jar
-          if-no-files-found: error
